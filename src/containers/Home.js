@@ -5,6 +5,8 @@ import UserInfo from '../components/UserInfo';
 import UserRepos from '../components/UserRepos';
 import { API_URL, SECRET_KEY } from '../api'
 
+export const HomeContext = React.createContext();
+
 function Home(){
     //State variables
     const [username, setUsername] = React.useState('SalmanFahmi-IT');
@@ -35,6 +37,7 @@ function Home(){
     }
 
     return(
+        <HomeContext.Provider value={{ user, repos }}>
         <Row>
             <Col md="4">
             <Jumbotron fluid>
@@ -60,9 +63,9 @@ function Home(){
                             user 
                             ? 
                             <React.Fragment>
-                                <UserInfo user={user} /> 
+                                <UserInfo /> 
                                 <h4>Public repositories</h4>
-                                <UserRepos repos={repos} />
+                                <UserRepos />
                             </React.Fragment>
                             : 'Github username is empty!'
                         }
@@ -70,6 +73,7 @@ function Home(){
                 </Card>
             </Col>
         </Row>
+        </HomeContext.Provider>
     );
 }
 
