@@ -1,3 +1,5 @@
+@import url("https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css");
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
@@ -10,4 +12,20 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+
+.box
+{
+  display:flex;
+  flex-direction:row;
+  margin: 5px 0;
+}
+
+.box > .badge
+{
+  flex:1 1 auto;
+  margin-right:3px;  /* and that, will result in a 10px gap */
+}
+.list-group-item{
+  padding: .5rem 1.25rem !important;
 }
