@@ -1,24 +1,32 @@
 import React from 'react';
-import { Row, Col, ListGroup, ListGroupItem, CardImg } from 'reactstrap';
+import { Card, CardBody, CardImg } from 'reactstrap';
+import moment from 'moment';
 
-const UserInfo = ({ user }) => (
-  <Row>
-      <Col md='4'>
-          <CardImg top width="100%" src={user.avatar_url}/>
-          <p>
-            <a href={user.html_url} rel="noopener noreferrer" target="_blank" className="btn btn-primary btn-block mb-4">View Profile</a>
-          </p>
-      </Col>
-      <Col md='8'>
-          <ListGroup flush>
-          <ListGroupItem>Fullname: {user.name}</ListGroupItem>
-          <ListGroupItem>Company: {user.company}</ListGroupItem>
-          <ListGroupItem>Repos: {user.public_repos}</ListGroupItem>
-          <ListGroupItem>Location: {user.location}</ListGroupItem>
-          <ListGroupItem>Member since: {user.created_at}</ListGroupItem>
-          </ListGroup>
-      </Col>
-  </Row>
+const UserAvatar = ({ user }) => (
+  <React.Fragment>
+    <Card className="mb-1">
+      <CardImg width="100%" src={user.avatar_url}/>
+    </Card>
+    <a href={user.html_url} rel="noopener noreferrer" target="_blank" className="btn btn-primary btn-block mb-4">
+      View Profile
+    </a>
+  </React.Fragment>
 );
+
+const UserInfo = ({user}) => {
+  return(
+    <Card>
+      <CardBody>
+        <UserAvatar user={user} />
+        <div>
+            <h5>{user.name}</h5>
+            <p>Member since { moment(user.created_at).format('DD/MM/YYYY')}</p>
+            <p><i className="fa fa-building" /> {user.company}</p>
+            <p><i className="fa fa-map-marker" /> {user.location}</p>
+            <p><i className="fa fa-link" /> {user.blog}</p>
+        </div>
+      </CardBody>
+    </Card>
+  )};
 
 export default UserInfo;

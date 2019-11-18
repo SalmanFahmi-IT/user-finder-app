@@ -6,13 +6,12 @@ import {
   NavbarBrand, 
   Container, 
 } from'reactstrap';
-
 function App() {
   return (
     <React.Fragment>
       <Navbar className="navbar-dark" color='primary' expand="md">
-          <Container>
-              <NavbarBrand href="/">Github users</NavbarBrand>
+          <Container style={{background: '#0069d8'}}>
+              <NavbarBrand href="/"> <i className="fa fa-github" /> Github Finder</NavbarBrand>
           </Container>
       </Navbar>
       <Container>
