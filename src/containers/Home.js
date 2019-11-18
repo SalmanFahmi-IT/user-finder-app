@@ -1,11 +1,9 @@
 import React from 'react';
-import { Card, CardBody, Row, Col, Jumbotron, Container, Button } from'reactstrap';
+import { Card, CardBody, InputGroup, InputGroupAddon,Input, Button, Row, Col } from'reactstrap';
 import axios from 'axios';
 import UserInfo from '../components/UserInfo';
 import UserRepos from '../components/UserRepos';
 import { API_URL, SECRET_KEY } from '../api'
-
-export const HomeContext = React.createContext();
 
 function Home(){
     //State variables
@@ -37,43 +35,31 @@ function Home(){
     }
 
     return(
-        <HomeContext.Provider value={{ user, repos }}>
-        <Row>
-            <Col md="4">
-            <Jumbotron fluid>
-                <Container fluid>
+        <React.Fragment>
+            <Card className='mb-2 bg-light'>
+                <CardBody>
                     <h3> Search Github Users</h3>
                     <p className="lead">Enter a username to fetch a user profile and repos</p>
-                    <input 
-                    type="text"  
-                    className="form-control" 
-                    placeholder="Github username..." 
-                    onChange={handleChange}
-                    />
-                    <br />
-                    <Button block color='success' type='submit' 
-                    onClick={(e) => handleSearch(e)}>Search</Button>
-                </Container>
-            </Jumbotron>
-            </Col>
-            <Col md="8">
-                <Card>
-                    <CardBody>
-                        {
-                            user 
-                            ? 
-                            <React.Fragment>
-                                <UserInfo /> 
-                                <h4>Public repositories</h4>
-                                <UserRepos />
-                            </React.Fragment>
-                            : 'Github username is empty!'
-                        }
-                    </CardBody>
-                </Card>
-            </Col>
-        </Row>
-        </HomeContext.Provider>
+                    <InputGroup>
+                        <Input type="text" placeholder="Github username..." onChange={handleChange}/>
+                        <InputGroupAddon addonType="prepend">
+                            <Button color="success" onClick={(e) => handleSearch(e)}>
+                                <i className="fa fa-search" />
+                            </Button>
+                        </InputGroupAddon>
+                    </InputGroup>
+                </CardBody>
+            </Card>
+            {
+                user 
+                ?   <Row>
+                        <Col md="3"><UserInfo user={user}/></Col>
+                        <Col md="9"><UserRepos repos={repos}/></Col>
+                    </Row>
+                :   "Loading..."
+            }
+            
+        </React.Fragment>
     );
 }
 

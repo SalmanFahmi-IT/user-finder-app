@@ -1,41 +1,31 @@
 import React from 'react';
-import { ListGroup, ListGroupItem, Badge } from 'reactstrap';
-import { HomeContext } from '../containers/Home';
+import { Card, CardBody, CardHeader } from 'reactstrap';
 
-const UserRepos = () => (
-    <HomeContext.Consumer>{(context => {
-        const { repos } = context;
-        return(
-            <ListGroup>
+const UserRepos = ({repos}) => {
+    return (
+    <Card>
+        <CardHeader><i className="fa fa-folder" /> <strong>Repositories</strong></CardHeader>
+        <CardBody>
             {
                 repos && repos.map(item => {
-                return  <ListGroupItem key={item.id}>
+                return  <div className="repos" key={item.id}>
                             <div className="repos-header">
-                                <i className="fa fa-folder" />
-                                <a href={item.url}>
-                                    <strong> {item.name}</strong>
+                                <a href={item.html_url}>
+                                    <i className="fa fa-folder" /><strong> {item.name}</strong>
                                 </a>
-                                <Badge color='warning' style={{float: 'right',lineHeight:'inherit'}}>
-                                <i className={item.private ? 'fa fa-lock' : 'fa fa-globe'} /> 
-                                <span> {item.private ? 'Private' : 'Public'} </span>
-                                </Badge>
+                                <div className="box right">
+                                    <span><i className={item.private ? 'fa fa-lock' : 'fa fa-globe'} /></span>
+                                    <span><i className="fa fa-star" /> {item.stargazers_count}</span>
+                                    <span><i className="fa fa-code-fork" /> {item.forks}</span>
+                                    <span><i className="fa fa-eye" /> {item.watchers}</span>
+                                </div>
                             </div>
-                            <hr />
                             <p>{item.description || "Please add some description !"}</p>
-                            <hr />
-                            <div className="box">
-                                <Badge color="dark">Created at: {item.created_at}</Badge>
-                                <Badge color="dark">Stars: {item.stargazers_count}</Badge>
-                                <Badge color="dark">Forks: {item.forks}</Badge>
-                                <Badge color="dark">Watchers: {item.watchers}</Badge>
-                            </div>
-                        </ListGroupItem>
+                        </div>
                 })
             }
-        </ListGroup>
-        );
-    })}
-    </HomeContext.Consumer>
-);
+        </CardBody>
+    </Card>
+)};
 
 export default UserRepos;
