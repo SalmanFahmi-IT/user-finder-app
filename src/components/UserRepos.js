@@ -10,7 +10,7 @@ const UserRepos = ({repos}) => {
                 repos && repos.map(item => {
                 return  <div className="repos" key={item.id}>
                             <div className="repos-header">
-                                <a href={item.html_url}>
+                                <a href={item.html_url} target="_blank" rel="noopener noreferrer">
                                     <i className="fa fa-folder" /><strong> {item.name}</strong>
                                 </a>
                                 <div className="box right">
